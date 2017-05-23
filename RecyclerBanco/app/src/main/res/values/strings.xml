@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RecyclerBanco</string>
+    <string-array name="spPosto">
+        <item>Shell</item>
+        <item>Br</item>
+        <item>Ipiranga</item>
+        <item>Texaco</item>
+    </string-array>
+</resources>
