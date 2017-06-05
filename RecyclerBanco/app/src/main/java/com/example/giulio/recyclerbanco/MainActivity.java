@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     public void adicionarAbastecimento(View v){
         Intent intent = new Intent(MainActivity.this, AdicionarAbastecimento.class);
         startActivity(intent);
-
-
+    }
+    public void actShow(View v){
+        Intent intent = new Intent(MainActivity.this, Show.class);
+        startActivity(intent);
     }
 }

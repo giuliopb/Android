@@ -1,21 +1,30 @@
 package com.example.giulio.recyclerbanco;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by giulio on 22/05/2017.
  */
 
-public class Abastecimento {
+public class Abastecimento implements Serializable {
+
+    public static ArrayList<Abastecimento> listaAbastecimentos;
+
+    public static ArrayList<Abastecimento> obterListaAbastecimentos(){
+        return Abastecimento.listaAbastecimentos;
+    }
+
     private String nome;
-    private Date data;
-    private float litros;
-    private float quilometragem;
+    private String data;
+    private double litros;
+    private double quilometragem;
 
     public Abastecimento() {
     }
 
-    public Abastecimento(String nome, Date data, float litros, float quilometragem) {
+    public Abastecimento(String nome, String data, double litros, double quilometragem) {
         this.nome = nome;
         this.data = data;
         this.litros = litros;
@@ -30,27 +39,27 @@ public class Abastecimento {
         this.nome = nome;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public float getLitros() {
+    public double getLitros() {
         return litros;
     }
 
-    public void setLitros(float litros) {
+    public void setLitros(double litros) {
         this.litros = litros;
     }
 
-    public float getQuilometragem() {
+    public double getQuilometragem() {
         return quilometragem;
     }
 
-    public void setQuilometragem(float quilometragem) {
+    public void setQuilometragem(double quilometragem) {
         this.quilometragem = quilometragem;
     }
 }
