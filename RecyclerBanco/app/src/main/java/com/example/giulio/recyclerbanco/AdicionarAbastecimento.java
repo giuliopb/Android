@@ -1,5 +1,6 @@
 package com.example.giulio.recyclerbanco;
 
+import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,7 +45,10 @@ public class AdicionarAbastecimento extends AppCompatActivity {
         SQLiteDatabase bd = bdHelper.getWritableDatabase();
 
         // Create a new map of values, where column names are the keys
+
+
         if (valida()) {
+
             ContentValues values = new ContentValues();
             values.put("kmAtual", Double.parseDouble(etKm.getText().toString()));
             values.put("litrosAbastecidos", Double.parseDouble(etLitros.getText().toString()));
@@ -53,7 +57,9 @@ public class AdicionarAbastecimento extends AppCompatActivity {
 
             long newRowId = bd.insert("abastecimentos", null, values);
             Toast.makeText(this, "Salvo com id: " + newRowId, Toast.LENGTH_LONG).show();
+
         }
+
     }
 
     private boolean valida() {
@@ -69,7 +75,16 @@ public class AdicionarAbastecimento extends AppCompatActivity {
             etKm.setError("essa quilometragem é menor que a ultima digitada");
             return false;
         }
+        if(tvData.getText().toString().equals("dd/mm/aaaa")){
+            tvData.setError("data invalida");
+            return false;
+        }
             return true;
+    }
+
+    public void showDatePick(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(),"picker");
     }
 
     private double recuperar(String qual) {// a string qual é o que voce quer recuperar pela quilometragem, OPÇOES: menor, maior e tudo.
@@ -103,6 +118,8 @@ public class AdicionarAbastecimento extends AppCompatActivity {
             String resultado = "";
             if (c.moveToFirst()) {
                 resultado = c.getString(0);
+            }else{
+                resultado = "0";
             }
             return Double.parseDouble(resultado);
         }
