@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btAdd;
@@ -21,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        tvMedia= (TextView) findViewById(R.id.tvMedia);
+       // tvMedia.setText(String.valueOf(calculMedia()));         problema ao recuperar os dados
         btAdd = (Button) findViewById(R.id.btAdd);
     }
     public void adicionarAbastecimento(View v){
@@ -31,5 +34,18 @@ public class MainActivity extends AppCompatActivity {
     public void actShow(View v){
         Intent intent = new Intent(MainActivity.this, Show.class);
         startActivity(intent);
+    }
+    private Double calculMedia(){
+        AdicionarAbastecimento abastecimentos = new AdicionarAbastecimento();
+        Abastecimento.listaAbastecimentos = abastecimentos.recueperarTudo();
+        int contador = 0;
+        double litros=0;
+        double kmIni=Abastecimento.obterListaAbastecimentos().get(contador).getQuilometragem();
+        double kmFinal = Abastecimento.obterListaAbastecimentos().get(Abastecimento.obterListaAbastecimentos().size()-1).getQuilometragem();
+        do {
+            litros = litros + Abastecimento.obterListaAbastecimentos().get(contador).getLitros();
+        }while(Abastecimento.listaAbastecimentos.size() > contador);
+
+        return (kmFinal-kmIni)/litros;
     }
 }
