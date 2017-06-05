@@ -14,14 +14,12 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
 
     private Button btAdd;
-    private TextView tvMedia;
+    private TextView tvMedia; // *** precisa calcular a media
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SharedPreferences configuracao = getSharedPreferences("preferencias", 0);
 
 
 

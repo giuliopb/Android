@@ -2,8 +2,9 @@
     <string name="app_name">RecyclerBanco</string>
     <string-array name="spPosto">
         <item>Shell</item>
-        <item>Br</item>
+        <item>Petrobras</item>
         <item>Ipiranga</item>
         <item>Texaco</item>
+        <item>Outros</item>
     </string-array>
 </resources>
