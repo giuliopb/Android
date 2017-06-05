@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         btAdd = (Button) findViewById(R.id.btAdd);
     }
     public void adicionarAbastecimento(View v){

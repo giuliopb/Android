@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.giulio.recyclerbanco.storage.BdHelper;
 
+import java.util.ArrayList;
+
 /**
  * Created by giulio on 22/05/2017.
  */
@@ -71,23 +73,57 @@ public class AdicionarAbastecimento extends AppCompatActivity {
             etLitros.setError("o campo nao foi preenchido");
             return false;
         }
-        if(recuperar("maior") >= Double.parseDouble(etKm.getText().toString())){
+        if (recuperar("maior") >= Double.parseDouble(etKm.getText().toString())) {
             etKm.setError("essa quilometragem é menor que a ultima digitada");
             return false;
         }
-        if(tvData.getText().toString().equals("dd/mm/aaaa")){
+        if (tvData.getText().toString().equals("dd/mm/aaaa")) {
             tvData.setError("data invalida");
             return false;
         }
-            return true;
+        return true;
     }
 
     public void showDatePick(View v) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(),"picker");
+        newFragment.show(getFragmentManager(), "picker");
     }
 
-    private double recuperar(String qual) {// a string qual é o que voce quer recuperar pela quilometragem, OPÇOES: menor, maior e tudo.
+    public ArrayList<Abastecimento> recueperarTudo() {
+        BdHelper bdHelper = new BdHelper(this);
+        SQLiteDatabase db = bdHelper.getReadableDatabase();
+        String[] projecao = {
+                "kmAtual",
+                "litrosAbastecidos",
+                "posto",
+                "data"};
+
+        String orderBy = "kmAtual DESC";
+
+
+        Cursor c = db.query(
+                "abastecimentos",                         // Tabela
+                projecao,                               // Colunas para seleção
+                null,                                  // colunas WHERE
+                null,                           // valores WHERE
+                null,                                   // GROUP BY
+                null,                                   // FILTER BY
+                orderBy                                 // ORDER BY
+        );
+
+        Abastecimento.listaAbastecimentos = new ArrayList<>();
+        if (c.moveToFirst()) {
+            do {
+                Abastecimento.listaAbastecimentos.add(new Abastecimento(c.getString(0), c.getString(1), c.getDouble(2), c.getDouble(3)));
+            }while(c.moveToNext());
+        } else {
+            Abastecimento.listaAbastecimentos.add(new Abastecimento("nao existe nada aqui", "0", 0, 0));
+
+        }
+        return Abastecimento.listaAbastecimentos;
+    }
+
+    public double recuperar(String qual) {// a string qual é o que voce quer recuperar pela quilometragem, OPÇOES: menor, maior.
         BdHelper bdHelper = new BdHelper(this);
         SQLiteDatabase db = bdHelper.getReadableDatabase();
         String[] projecao = {
@@ -123,8 +159,6 @@ public class AdicionarAbastecimento extends AppCompatActivity {
             }
             return Double.parseDouble(resultado);
         }
-        //implementar pra retornar todos
-
 
         return 0;
     }

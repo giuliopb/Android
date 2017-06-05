@@ -20,10 +20,8 @@ public class FragmentoListagem extends Fragment {
         View v = inflater.inflate(R.layout.interface_listagem, container, false);
         RecyclerView rvLista = (RecyclerView) v.findViewById(R.id.rvLista);
 
-        Abastecimento.listaAbastecimentos = new ArrayList<>();
-        Abastecimento.listaAbastecimentos.add(new Abastecimento("oi", "oi", 16, 15));
-        Abastecimento.listaAbastecimentos.add(new Abastecimento("Batman", "ke", 14, 13));
-
+        AdicionarAbastecimento recuperar = new AdicionarAbastecimento();
+        Abastecimento.listaAbastecimentos = recuperar.recueperarTudo();
         AbastecimentoAdapter adaptadorDeAbastecimento = new AbastecimentoAdapter(listener);
 
         rvLista.setLayoutManager(new LinearLayoutManager(this.getContext()));
